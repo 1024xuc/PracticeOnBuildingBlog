@@ -131,7 +131,7 @@ class Model(dict, metaclass=ModelMetaClass):
         self[key] = value
 
     def get_value(self, key):
-        return getattr(self, key, None);
+        return getattr(self, key, None)
 
     def get_value_or_default(self, key):
         value = getattr(self, key, None)
@@ -180,7 +180,7 @@ class Model(dict, metaclass=ModelMetaClass):
             sql.append('where')
             sql.append(where)
         rs = yield from select(' '.join(sql), args, 1)
-        if(len(rs) == 0):
+        if len(rs) == 0:
             return None
         return rs[0]['_num_']
 
@@ -259,35 +259,52 @@ def create_args_string(num):
         L.append('?')
     return ','.join(L)
 
-#
+
 # if __name__ == '__main__':
-#     class User2(Model):
-#         id = IntegerField('id', primary_key=True)
-#         name = StringField('name')
-#         email = StringField('email')
-#         password = StringField('password')
 #
 #     loop = asyncio.get_event_loop()
 #
+#
+#     class User(Model):
+#         __table__ = 'users'
+#
+#         id = StringField(primary_key=True, default=next_id, ddl='varchar(50)')
+#         email = StringField(ddl='varchar(50)')
+#         password = StringField(ddl='varchar(50)')
+#         admin = BooleanField()
+#         name = StringField(ddl='varchar(50)')
+#         image = StringField(ddl='varchar(500)')
+#         created_at = FloatField(default=time.time)
+#
 #     @asyncio.coroutine
 #     def test():
+#         # yield from create_pool(
+#         #     loop=loop,
+#         #     host='localhost',
+#         #     port=3306,
+#         #     user='root',
+#         #     password='1234',
+#         #     db='test'
+#         # )
+#
 #         yield from create_pool(
 #             loop=loop,
 #             host='localhost',
 #             port=3306,
-#             user='root',
-#             password='1234',
-#             db='test'
+#             user='www-data',
+#             password='www-data',
+#             db='awesome'
 #         )
 #
-#         user = User2()
-#         # yield from user.save()
-#         r = yield from User2.find_number('email')
-#         print(r)
+#         user = User(id=2, email='abc@qq.com', password='4321', admin=True, name='lisi', image='No image')
+#         # user = User2(id=2, email='abc@163.com')
+#         yield from user.save()
+#         # r = yield from User2.find_number('email')
+#         # print(r)
 #         # r = yield from User2.
 #         yield from destroy_pool()
 #
 #     loop.run_until_complete(test())
 #     loop.close()
 #     if loop.is_closed():
-#         sys.exit(0)
+        # sys.exit(0)
