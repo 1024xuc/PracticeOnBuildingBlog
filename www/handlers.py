@@ -198,6 +198,7 @@ def api_register_user(*, email, name, password):
     r.body = json.dumps(user, ensure_ascii=False).encode('utf-8')
     return r
 
+
 @get('/api/blogs/{id}')
 @asyncio.coroutine
 def api_get_blog(*, id):
@@ -206,6 +207,7 @@ def api_get_blog(*, id):
 
 
 @post('/api/blogs')
+@asyncio.coroutine
 def api_create_blog(request, *, name, summary, content):
     check_admin(request)
     if not name or not name.strip():

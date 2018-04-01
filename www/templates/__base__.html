@@ -56,6 +56,9 @@
                     <li><a href="/signin"><i class="uk-icon-sign-in"></i> 登陆</a></li>
                     <li><a href="/register"><i class="uk-icon-edit"></i> 注册</a></li>
                 {% endif %}
+                {% if __user__.admin %}
+                    <li><a href="/manage/blogs/create"><i class="uk-icon-create"></i> 创建</a></li>
+                {% endif %}
                 </ul>
             </div>
         </div>
